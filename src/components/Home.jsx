@@ -7,6 +7,34 @@ const Home = () => {
   const [value, setValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const pasteId = searchParams.get("pasteId");
+  const dispatch = useDispatch();
+
+
+  function createPaste() {
+    const paste = {
+      title: title,
+      content : value,
+      _id: pasteId || 
+          Date.now().toString(36),
+          createdAt:new Date().toISOString(),
+    }
+    
+    if(pasteId){
+      //update
+      dispatch(addToPastes(paste));
+    }
+    else {
+      //create
+      dispatch(updateToPastes(paste));
+    }
+
+    // after creation or updation
+    setTitle('');
+    setValue('');
+    setSearchParams({});
+
+    }
+  }
 
   return (
     <div>
@@ -18,7 +46,9 @@ const Home = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <button className="p-2 rounded-2xl border-black mt-2">
+        <button
+        onClick={createPaste}
+        className="p-2 rounded-2xl border-black mt-2">
           {pasteId ? "update My Paste" : "Create My Paste"}
         </button>
       </div>
@@ -33,6 +63,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+
 
 export default Home;
