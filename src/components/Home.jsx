@@ -1,6 +1,8 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
+import { addToPastes, updateToPastes } from "../redux/pasteSlice";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -17,23 +19,23 @@ const Home = () => {
       _id: pasteId || 
           Date.now().toString(36),
           createdAt:new Date().toISOString(),
-    }
+    };
     
     if(pasteId){
       //update
-      dispatch(addToPastes(paste));
+      dispatch(updateToPastes(paste));
     }
     else {
       //create
-      dispatch(updateToPastes(paste));
+      dispatch(addToPastes(paste));
     }
 
-    // after creation or updation
+    // after creation or updation, resetting the form fields
     setTitle('');
     setValue('');
-    setSearchParams({});
+    setSearchParams({}); // clearing the url parameter after saving
 
-    }
+    
   }
 
   return (
@@ -63,6 +65,6 @@ const Home = () => {
       </div>
     </div>
   );
-
+}
 
 export default Home;
