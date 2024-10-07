@@ -1,8 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { addToPastes, updateToPastes } from "../redux/pasteSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const ViewPaste = () => {
   

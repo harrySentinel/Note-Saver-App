@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removedFromPastes } from "../redux/pasteSlice";
-import toast , {Toaster} from "react-hot-toast"
+import toast from "react-hot-toast"
 
 const Paste = () => {
   const pastes = useSelector((state) => state.paste.pastes);
@@ -30,9 +30,9 @@ const Paste = () => {
 
       <div className="flex flex-col gap-5 mt-5">
         {filteredData.length > 0 &&
-          filteredData.map((paste) => {
+          filteredData.map((paste, index) => {
             return (
-              <div className="border">
+              <div className="border" key= {paste?._id || index} >
                 <div>{paste.title}</div>
                 <div>{paste.content}</div>
                 <div className="flex flex-row gap-4 place-content-evenly">
